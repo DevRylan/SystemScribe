@@ -6,6 +6,7 @@
 body{
   width: 100%;
   height: 70vh;
+  margin: 0px;
 }
 .login{
   display: flex;
@@ -17,4 +18,16 @@ body{
 .login h1 {
   padding: 0px;
   margin: 0px;
+}
+#header{
+  background-color: rgb(51, 51, 51);
+  width: 100%;
+  padding: 0px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+#header h3{
+  background-color: rgb(51, 51, 51);
 }
