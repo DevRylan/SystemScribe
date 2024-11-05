@@ -1,7 +1,7 @@
 import Axios from 'axios';
 import React from 'react';
 
-function LoginForm(){
+function AdminLoginForm(){
     const [message, setMessage] = React.useState('');
     
     React.useEffect(()=>{
@@ -20,14 +20,13 @@ function LoginForm(){
     return(
     <div id='login-form'>
         <div className='login'>
-            <h1>Login/Register</h1>
+            <h1>Admin Login</h1>
             <form style={{display: "flex", flexDirection: "column", gap: "10px"}} method="POST">
-                <input type="text" placeholder="Username"/>
                 <input type="password" placeholder="Password"/>
                 <input type="submit"/>
             </form>
-            <a href='/admin'style={{ color: 'blue', textDecoration: 'underline', cursor: 'pointer' }}>Or login as Admin.</a>
+            <a href='/'style={{ color: '#0000EE', textDecoration: 'underline', cursor: 'pointer' }}>Or login as User.</a>
         </div>
     </div>);
 }
-export default LoginForm;
+export default AdminLoginForm;

@@ -1,14 +1,20 @@
 import { useState } from 'react'
 //import './App.css'
-import LoginForm from './components/login';
-import Header from './components/header'
+import React from 'react';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import LoginPage from './pages/loginPage';
+import AdminLoginPage from './pages/adminLoginPage';
 
 function App() {
 
   return (
-    <div>
-      <Header/>
-      <LoginForm />
+    <div className="App">
+      <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<LoginPage />}/>
+        <Route path="/admin" element={<AdminLoginPage/>}/>
+      </Routes>
+      </BrowserRouter>
     </div>
   );
 }
