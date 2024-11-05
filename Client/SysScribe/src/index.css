@@ -31,3 +31,16 @@ body{
 #header h3{
   background-color: rgb(51, 51, 51);
 }
+#issue-container{
+  width: 100%;
+  height: 70vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#issue-box{
+  border: 5px black solid;
+  border-radius: 8%;
+  width: 30%;
+  height: 400px;
+}
