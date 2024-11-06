@@ -1,9 +1,24 @@
-* {
+::-webkit-scrollbar {
+  width: 12px;
+}
+::-webkit-scrollbar-thumb {
+  background: #4e525a; 
+  border-radius: 5px; 
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #6f7782; 
+}
+::-webkit-scrollbar-track {
+  background: #323439;
+}
+*{
+  font-family: 'Roboto', sans-serif;
+}
+body {
   background-color: rgb(61, 61, 61);
   font-family: 'Roboto', sans-serif;
   font-size: 12pt; 
-}
-body{
   width: 100%;
   height: 70vh;
   margin: 0px;
@@ -33,14 +48,41 @@ body{
 }
 #issue-container{
   width: 100%;
-  height: 70vh;
+  height: 75vh;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 #issue-box{
   border: 5px black solid;
   border-radius: 8%;
   width: 30%;
-  height: 400px;
+  height: 900px;
+  margin-top: 50px;
+  padding-top: 3px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.issue {
+  display: block;
+  width: 100%;
+  height: 125px;
+  padding: 5px;
+  background-color: rgb(110, 115, 118) !important;
+  transition: background-color 0.15s ease;
+  display: grid;
+  grid-template-columns: 2fr 8fr;
+  grid-template-rows: 1fr 1fr;
+  margin-bottom: 5px
+}
+
+.issue:hover {
+  background-color: rgb(100, 105, 108) !important;
+}
+.inner-issue{
+  display:flex;
+  flex-direction: column;
+  align-items: end;
+  justify-content: center;
 }
