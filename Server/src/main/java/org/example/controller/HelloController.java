@@ -1,34 +1,28 @@
 package org.example.controller;
 
+import org.example.model.SelectDB;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
 public class HelloController {
-
-    @GetMapping("/api/message") 
-    public Message getMessage() {
-        return new Message("Hello from the backend!"); 
+    private final SelectDB SelectDB;
+    @Autowired
+    public HelloController(SelectDB selectDB) {
+        this.SelectDB = selectDB;
     }
     @GetMapping("/api/ping")
     public Boolean ping(){
         return true;
     } 
-    public static class Message {
-        private String message;
-
-        public Message(String message) {
-            this.message = message;
-        }
-
-        public String getMessage() {
-            return message;
-        }
-
-        public void setMessage(String message) {
-            this.message = message;
-        }
+    @GetMapping("/api/login")
+    public Boolean login(@RequestParam String username, @RequestParam String password){
+        return ;
     }
+
 }
