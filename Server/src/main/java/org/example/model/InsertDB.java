@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
-public class testDB {
+public class InsertDB {
 
     @Value("${spring.datasource.url}")
     private String url;
@@ -21,7 +21,7 @@ public class testDB {
     @Value("${spring.datasource.password}")
     private String password;
 
-    public void testConnection(String query) {
+    public void InsertQuery(String query) {
         try (Connection connection = DriverManager.getConnection(url, username, password);
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query)) {
