@@ -12,8 +12,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
@@ -32,13 +35,23 @@ public class HelloController {
     public Boolean ping(){
         return true;
     } 
-    @GetMapping("/api/login")
-    public ResponseEntity<Map<String, Object>> Login(@RequestParam String username, @RequestParam String password)
-            throws SQLException {
+    @PostMapping("/api/login")
+    public ResponseEntity<Map<String, Object>> Login(@RequestBody Map<String, String> loginData) throws SQLException {
+        String username = loginData.get("username");
+        String password = loginData.get("password");
         Map<String, Object> response = new HashMap<>();
+        response.put("login", false);
+        response.put("reason", "Invalid");
+        System.out.println("Trying sql statement");
         ResultSet results = (ResultSet) SelectDB.SelectQuery("SELECT * FROM users WHERE username = "+username+" AND password = " +password);
-        ResultSet userPass = (ResultSet) SelectDB.SelectQuery("SELECT * FROM users WHERE username = "+username+" AND password != "+password);
-        if (results != null && results.next()) {
+       /* ResultSet userPass = (ResultSet) SelectDB.SelectQuery("SELECT * FROM users WHERE username = "+username+" AND password != "+password);        
+        System.out.println("Trying condition...");
+        if (userPass.next()){
+        System.out.println("Trying inside...");
+        System.out.println("Entering testMethod with username: " + userPass.getString("username"));
+        }*/
+        return ResponseEntity.ok(response);
+        /*if (results != null && results.next()) {
             response.put("login", true);
             return ResponseEntity.ok(response);
         }
@@ -51,7 +64,7 @@ public class HelloController {
             response.put("login", false);
             response.put("reason", false);
             return ResponseEntity.ok(response);
-        }
+        }*/
     }
     @GetMapping("/api/register")
     public ResponseEntity<Map<String, Object>> Register(@RequestParam String username, @RequestParam String password) throws SQLException{
