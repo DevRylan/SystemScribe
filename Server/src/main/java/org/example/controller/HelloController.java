@@ -1,6 +1,5 @@
 package org.example.controller;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -37,44 +35,44 @@ public class HelloController {
     } 
     @PostMapping("/api/login")
     public ResponseEntity<Map<String, Object>> Login(@RequestBody Map<String, String> loginData) throws SQLException {
+        //Parses data from react code 
         String username = loginData.get("username");
         String password = loginData.get("password");
         Map<String, Object> response = new HashMap<>();
-        response.put("login", false);
-        response.put("reason", "Invalid");
-        System.out.println("Trying sql statement");
-        ResultSet results = (ResultSet) SelectDB.SelectQuery("SELECT * FROM users WHERE username = "+username+" AND password = " +password);
-       /* ResultSet userPass = (ResultSet) SelectDB.SelectQuery("SELECT * FROM users WHERE username = "+username+" AND password != "+password);        
+        //Gets user values from the model
+        System.out.println("Trying sql statement values: " +username+ " " +password);
+        boolean results = SelectDB.SelectUserQuery(username, password);
+        boolean userPass = SelectDB.SelectUsernameQuery(username, password);        
         System.out.println("Trying condition...");
-        if (userPass.next()){
-        System.out.println("Trying inside...");
-        System.out.println("Entering testMethod with username: " + userPass.getString("username"));
-        }*/
-        return ResponseEntity.ok(response);
-        /*if (results != null && results.next()) {
+
+        if (results) {//if login is successful
             response.put("login", true);
             return ResponseEntity.ok(response);
         }
-        else if(userPass != null && userPass.next()){
+        else if(userPass){//if password is incorrect
             response.put("login", false);
             response.put("reason", "Invalid Password");
             return ResponseEntity.ok(response);
         }
-        else{
+        else{//is username doesnt exist
             response.put("login", false);
-            response.put("reason", false);
+            response.put("reason", null);
             return ResponseEntity.ok(response);
-        }*/
+        }
     }
-    @GetMapping("/api/register")
-    public ResponseEntity<Map<String, Object>> Register(@RequestParam String username, @RequestParam String password) throws SQLException{
+    @PostMapping("/api/register")
+    public ResponseEntity<Map<String, Object>> Register(@RequestBody Map<String, String> registerData) throws SQLException{
+        //Parsing register info and passint to query
+        String username = registerData.get("username");
+        String password = registerData.get("password");
         Map<String, Object> response = new HashMap<>();
-        ResultSet results = (ResultSet) SelectDB.SelectQuery("SELECT * FROM users WHERE username = "+username);
-        if (results != null && results.next()) {
+        boolean results = SelectDB.SelectUserQuery(username, password);
+        if (results) {//if user exists
             response.put("register", false);
+            response.put("reason", "user exists");
             return ResponseEntity.ok(response);
         }else{
-            InsertDB.InsertQuery("INSERT INTO users (username, password) VALUES ("+username+", "+password+")");
+            InsertDB.InsertUserQuery(username, password);
             response.put("register", true);
             return ResponseEntity.ok(response);
         }
