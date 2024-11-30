@@ -13,19 +13,21 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
 
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
-public class HelloController {
+public class MainController {
     private final SelectDB SelectDB;
     private final InsertDB InsertDB;
     @Autowired 
     private BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
-    public HelloController(SelectDB selectDB, InsertDB insertDB) {
+    public MainController(SelectDB selectDB, InsertDB insertDB) {
         this.SelectDB = selectDB;
         this.InsertDB = insertDB;
     }
@@ -47,6 +49,8 @@ public class HelloController {
 
         if (results) {//if login is successful
             response.put("login", true);
+            //For authentication
+            response.put("auth", username);
             return ResponseEntity.ok(response);
         }
         else if(userPass){//if password is incorrect
@@ -77,5 +81,12 @@ public class HelloController {
             return ResponseEntity.ok(response);
         }
     }
+    @GetMapping("/api/auth")
+    public boolean Auth(@RequestParam(name = "user") String user) {
+        String username = user;
+        boolean results = SelectDB.SelectUserQuery(username," ");
+        return results;
+    }
+    
 
 }

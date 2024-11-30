@@ -20,12 +20,12 @@ public class InsertDB {
     @Value("${spring.datasource.password}")
     private String password;
 
-    public void InsertUserQuery(String username, String password) {
+    public void InsertUserQuery(String username1, String password1) {
         String query = "INSERT INTO users (username, password) VALUES (?, ?)";
         try (Connection connection = DriverManager.getConnection(url, username, password);
              PreparedStatement statement = connection.prepareStatement(query)) {
-             statement.setString(1, username);
-             statement.setString(2, password);
+             statement.setString(1, username1);
+             statement.setString(2, password1);
              statement.executeUpdate();
         }
          catch (SQLException e) {

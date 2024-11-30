@@ -2,7 +2,7 @@ import Axios from 'axios';
 import React from 'react';
 import {useNavigate} from 'react-router-dom'
 
-function LoginForm(){
+function RegisterForm(){
     const [userForm, userFormChange] = React.useState({username: '', password: ''});
     const Navigate = useNavigate();
     
@@ -25,19 +25,18 @@ function LoginForm(){
     }
     async function handleClick(e){
         console.log('Response: about to try');
-        const response = await Axios.post('http://localhost:8080/api/login', userForm);
+        const response = await Axios.post('http://localhost:8080/api/register', userForm);
         console.log('Response: ' +response.data.login);
-        if (response.data.login){
-            localStorage.setItem('auth', JSON.stringify(response.data.auth));
+        if (response.data.register){
             Navigate('/menu')
         } else{
-            console.log('LOGIN FAILED: INCORRECT CREDENTIALS');
+            console.log('REGISTER FAILED: ALREADY EXISTS');
         }
     }
     return(
     <div id='login-form'>
         <div className='login'>
-            <h1>Login</h1>
+            <h1>Register</h1>
             <form style={{display: "flex", 
                           flexDirection: "column", 
                           gap: "10px"}} method="POST" >
@@ -50,7 +49,7 @@ function LoginForm(){
                textDecoration: 'underline', 
                cursor: 'pointer' }}>
                Or login as Admin.</a>
-            <a href='/register'style=
+            <a href='/login'style=
             {{ color: 'blue', 
                textDecoration: 'underline', 
                cursor: 'pointer' }}>
@@ -58,4 +57,4 @@ function LoginForm(){
         </div>
     </div>);
 }
-export default LoginForm;
+export default RegisterForm;

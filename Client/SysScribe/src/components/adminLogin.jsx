@@ -25,7 +25,7 @@ function AdminLoginForm(){
                 <input type="password" placeholder="Password"/>
                 <input type="submit"/>
             </form>
-            <a href='/'style={{ color: '#0000EE', textDecoration: 'underline', cursor: 'pointer' }}>Or login as User.</a>
+            <a href='/login'style={{ color: '#0000EE', textDecoration: 'underline', cursor: 'pointer' }}>Or login as User.</a>
         </div>
     </div>);
 }
