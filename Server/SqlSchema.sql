@@ -10,6 +10,7 @@ CREATE TABLE issues (
     id SERIAL PRIMARY KEY,
     userID INT NOT NULL,
     issueName VARCHAR(255) NOT NULL,
+    issueStatus VARCHAT(255) DEFAULT 'Reported',
     description TEXT,
     creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     FOREIGN KEY (userID) REFERENCES users(id) ON DELETE CASCADE

@@ -4,10 +4,14 @@ import axios, { Axios } from "axios";
 import {useNavigate} from 'react-router-dom'
 
 function IssueContainer(){
+    const [received, addRecieved] = React.useState([]);
+    const [username, setUsername] = React.useState('');
     const Navigate = useNavigate();
 
+    //For getting authentication
     React.useEffect(()=>{
         const authData = JSON.parse(localStorage.getItem('auth'));
+        setUsername(authData);
         console.log('Data: '+authData);
         if (authData) {
             const isUser = async () => {
@@ -31,12 +35,18 @@ function IssueContainer(){
         Navigate('/login');
     }}, 
     []);
+    //For getting current issues
+    React.useEffect(async ()=>{
+        const response = await axios.get('http://localhost:8080/api/get-issues', {
+            params: {username: username}
+        });
+    }, []);
+    function sendData(e, index){
+        return <Issue issueName={e.issueName} description={e.description} creationTime={e.creationTime} issueState={e.issueStatus} key={index}/>
+    }
     return(<div id="issue-container">
         <div id="issue-box">
-            <Issue />
-            <Issue />
-            <Issue />
-            <Issue />
+            {received && received.map(sendData)}
         </div>
     </div>);
 }
