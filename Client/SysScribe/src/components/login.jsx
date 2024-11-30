@@ -4,6 +4,8 @@ import {useNavigate} from 'react-router-dom'
 
 function LoginForm(){
     const [userForm, userFormChange] = React.useState({username: '', password: ''});
+    const [error, setError] = React.useState('');
+
     const Navigate = useNavigate();
     
     function updateInfo(e){
@@ -32,6 +34,7 @@ function LoginForm(){
             Navigate('/menu')
         } else{
             console.log('LOGIN FAILED: INCORRECT CREDENTIALS');
+            setError(response.data.reason);
         }
     }
     return(
@@ -41,8 +44,8 @@ function LoginForm(){
             <form style={{display: "flex", 
                           flexDirection: "column", 
                           gap: "10px"}} method="POST" >
-                <input type="text" placeholder="Username" onChange={updateInfo}/>
-                <input type="password" placeholder="Password" onChange={updateInfo}/>
+                <input type="text" placeholder="Username" onChange={updateInfo} className={error ? "error-input" : ""}/>
+                <input type="password" placeholder="Password" onChange={updateInfo} className={error ? "error-input" : ""}/>
                 <button type="button" onClick={handleClick} className="btn btn-primary">Login</button>
             </form>
             <a href='/admin'style=
@@ -55,6 +58,7 @@ function LoginForm(){
                textDecoration: 'underline', 
                cursor: 'pointer' }}>
                Or Create an Account.</a>
+            {error ? <h3 className="error">{error}</h3> : null}
         </div>
     </div>);
 }

@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -64,6 +65,35 @@ public class SelectDB {
                System.out.println("Error: Unable to fetch data from the database!");
                return false;
            }
-        }
+    } public ArrayList<Issue> GetIssues(String username1){
+        ArrayList<Issue> issueList = new ArrayList<Issue>();
+        //query for getting the issues
+        String query = "SELECT issuename, issuestatus, description, creation " + 
+                        "FROM users " + 
+                        "WHERE id = (SELECT id FROM users WHERE username = ?)";
+
+        try (Connection connection = DriverManager.getConnection(url, username, password);//Establishes connection
+            PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, username1);
+            try(ResultSet resultSet = statement.executeQuery()){
+                while(resultSet.next()){
+                    //Iterates through the rows and appends to the list
+                    issueList.add(new Issue(resultSet.getString("issuename"), 
+                    resultSet.getString("description"), 
+                    resultSet.getString("issuestatus"), 
+                    resultSet.getString("creation")));
+                }return issueList;}
+                catch (SQLException e) {
+                   e.printStackTrace();
+                   System.out.println("Error: Unable to fetch data from the database!");
+                   return null;
+               }
+           } catch (SQLException e) {
+               e.printStackTrace();
+               System.out.println("Error: Unable to fetch data from the database!");
+               return null;
+           }
+    }
+
 }
 

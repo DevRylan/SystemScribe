@@ -36,15 +36,27 @@ function IssueContainer(){
     }}, 
     []);
     //For getting current issues
-    React.useEffect(async ()=>{
-        const response = await axios.get('http://localhost:8080/api/get-issues', {
-            params: {username: username}
-        });
+    React.useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get('http://localhost:8080/api/get-issues', {
+                    params: { user: username }
+                });
+                addRecieved(response.data);
+            } catch (error) {
+                console.error("Error fetching issues:", error);
+            }
+        };
+        fetchData();
     }, []);
     function sendData(e, index){
         return <Issue issueName={e.issueName} description={e.description} creationTime={e.creationTime} issueState={e.issueStatus} key={index}/>
     }
     return(<div id="issue-container">
+        <div className="user-button-container">
+            <button className="btn btn-info">Report Issue</button>
+            <button className="btn btn-danger">Logout</button>
+        </div>
         <div id="issue-box">
             {received && received.map(sendData)}
         </div>

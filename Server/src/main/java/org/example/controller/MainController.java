@@ -1,10 +1,12 @@
 package org.example.controller;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.example.model.InsertDB;
+import org.example.model.Issue;
 import org.example.model.SelectDB;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -60,7 +62,7 @@ public class MainController {
         }
         else{//is username doesnt exist
             response.put("login", false);
-            response.put("reason", null);
+            response.put("reason", "User does not exist. Try Registering?");
             return ResponseEntity.ok(response);
         }
     }
@@ -83,10 +85,16 @@ public class MainController {
     }
     @GetMapping("/api/auth")
     public boolean Auth(@RequestParam(name = "user") String user) {
+        //For checking cookie value passed by user
         String username = user;
         boolean results = SelectDB.SelectUserQuery(username," ");
         return results;
     }
+    @GetMapping("/api/get-issues")
+    public ArrayList<Issue> getIssues(@RequestParam(name = "user") String user) {
+        return SelectDB.GetIssues(user);
+    }
+    
     
 
 }
