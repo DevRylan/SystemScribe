@@ -106,3 +106,20 @@ body {
   justify-content: space-between;
   margin-top: 50px;
 }
+.issue-form{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.issue-submit-form{
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+}
+.default-text{
+  color: rgb(140, 139, 139);
+}

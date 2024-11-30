@@ -69,7 +69,7 @@ public class SelectDB {
         ArrayList<Issue> issueList = new ArrayList<Issue>();
         //query for getting the issues
         String query = "SELECT issuename, issuestatus, description, creation " + 
-                        "FROM users " + 
+                        "FROM issues " + 
                         "WHERE id = (SELECT id FROM users WHERE username = ?)";
 
         try (Connection connection = DriverManager.getConnection(url, username, password);//Establishes connection

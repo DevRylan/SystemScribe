@@ -21,8 +21,8 @@ function Header(){
     }, []);
     return(
     <div id='header'>
-        <h3>SysScribe</h3>
-        <h3>STATUS: {online ? "ONLINE" : "OFFLINE"}</h3>
+        <h3 className="default-text">SysScribe</h3>
+        <h3 className="default-text">STATUS: {online ? "ONLINE" : "OFFLINE"}</h3>
     </div>);
 }
 export default Header;

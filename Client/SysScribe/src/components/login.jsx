@@ -40,7 +40,7 @@ function LoginForm(){
     return(
     <div id='login-form'>
         <div className='login'>
-            <h1>Login</h1>
+            <h1 className="default-text">Login</h1>
             <form style={{display: "flex", 
                           flexDirection: "column", 
                           gap: "10px"}} method="POST" >

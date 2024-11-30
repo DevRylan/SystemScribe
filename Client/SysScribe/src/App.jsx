@@ -5,6 +5,7 @@ import LoginPage from './pages/loginPage';
 import AdminLoginPage from './pages/adminLoginPage';
 import IssueMenu from './pages/IssueMenu';
 import RegisterPage from './pages/registerPage';
+import IssuePage from './pages/IssuePage';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path='/register' element={<RegisterPage/>}/>
         <Route path="/admin" element={<AdminLoginPage/>}/>
         <Route path="/menu" element={<IssueMenu/>}/>
+        <Route path="/report-issue" element={<IssuePage/>}/>
       </Routes>
       </BrowserRouter>
     </div>

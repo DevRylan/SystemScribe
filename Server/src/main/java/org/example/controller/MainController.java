@@ -83,6 +83,15 @@ public class MainController {
             return ResponseEntity.ok(response);
         }
     }
+    @PostMapping("/api/report-issue")
+    public void ReportIssue(@RequestBody Map<String, String> reportData){
+        String username = reportData.get("username");
+        String title = reportData.get("title");
+        String description = reportData.get("description");
+        String os = reportData.get("os");
+        String severity = reportData.get("severity");
+        System.out.println("Info: " +username+title+description+os+severity);
+    }
     @GetMapping("/api/auth")
     public boolean Auth(@RequestParam(name = "user") String user) {
         //For checking cookie value passed by user
@@ -94,7 +103,4 @@ public class MainController {
     public ArrayList<Issue> getIssues(@RequestParam(name = "user") String user) {
         return SelectDB.GetIssues(user);
     }
-    
-    
-
 }

@@ -54,7 +54,7 @@ function IssueContainer(){
     }
     return(<div id="issue-container">
         <div className="user-button-container">
-            <button className="btn btn-info">Report Issue</button>
+            <button className="btn btn-info" onClick={() => Navigate('/report-issue')}>Report Issue</button>
             <button className="btn btn-danger">Logout</button>
         </div>
         <div id="issue-box">

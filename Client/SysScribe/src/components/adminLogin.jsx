@@ -20,7 +20,7 @@ function AdminLoginForm(){
     return(
     <div id='login-form'>
         <div className='login'>
-            <h1>Admin Login</h1>
+            <h1 className="default-text">Admin Login</h1>
             <form style={{display: "flex", flexDirection: "column", gap: "10px"}} method="POST">
                 <input type="password" placeholder="Password"/>
                 <input type="submit"/>
