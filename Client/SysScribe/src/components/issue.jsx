@@ -4,11 +4,13 @@ function Issue(props){
 
     return(
         <div className="issue">
-            <p>{props.issueName}</p>
-            <div className="inner-issue">
-                <p>STATUS: {props.issueState}</p>
+            <div className="inner-issue-text">
+                <p>{props.issueName}</p>
             </div>
-            <p>Sent: {props.creationTime}</p>
+            <div className="inner-issue">
+                <p>STATUS: {props.creationTime.substring(0, 19)}</p>
+            </div>
+            <p>Sent: {props.issueState}</p>
             <div className="inner-issue">
                 <input style={{ width: "85px", height: "35px" }} className="btn btn-danger" type="button" value="DELETE" />
             </div>

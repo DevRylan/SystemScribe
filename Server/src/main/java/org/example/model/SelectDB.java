@@ -81,8 +81,8 @@ public class SelectDB {
                     //Iterates through the rows and appends to the list
                     issueList.add(new Issue(resultSet.getString("issuename"), 
                     resultSet.getString("description"), 
-                    resultSet.getString("issuestatus"), 
-                    resultSet.getString("creation")));
+                    resultSet.getString("creation"), 
+                    resultSet.getString("issuestatus")));
                 }return issueList;}
                 catch (SQLException e) {
                    e.printStackTrace();
