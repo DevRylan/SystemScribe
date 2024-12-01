@@ -72,7 +72,7 @@ body {
   background-color: rgb(110, 115, 118) !important;
   transition: background-color 0.15s ease;
   display: grid;
-  grid-template-columns: 2fr 8fr;
+  grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
   margin-bottom: 5px
 }
