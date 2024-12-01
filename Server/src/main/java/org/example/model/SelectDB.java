@@ -93,6 +93,25 @@ public class SelectDB {
                System.out.println("Error: Unable to fetch data from the database!");
                return null;
            }
+    } public int SelectUserId(String Username1){
+        String query = "SELECT id FROM users WHERE username = ?";
+        try (Connection connectionID = DriverManager.getConnection(url, username, password);
+             PreparedStatement statementID = connectionID.prepareStatement(query)) {
+             statementID.setString(1, Username1);
+             try(ResultSet resultSet = statementID.executeQuery();){
+                if (resultSet.next()) { 
+                    return resultSet.getInt("id"); 
+                } else {
+                    System.out.println("No user found with username");
+                    return -1; 
+                }
+             }
+        }
+         catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Error: Unable to fetch data from the database!");
+            return -1;
+        }
     }
 
 }

@@ -85,12 +85,13 @@ public class MainController {
     }
     @PostMapping("/api/report-issue")
     public void ReportIssue(@RequestBody Map<String, String> reportData){
-        String username = reportData.get("username");
+        //Format for using query method to insert issue data 
+        String username1 = reportData.get("username");
         String title = reportData.get("title");
         String description = reportData.get("description");
         String os = reportData.get("os");
         String severity = reportData.get("severity");
-        System.out.println("Info: " +username+title+description+os+severity);
+        InsertDB.InsertIssueQuery(username1, title, description, os, severity);
     }
     @GetMapping("/api/auth")
     public boolean Auth(@RequestParam(name = "user") String user) {
