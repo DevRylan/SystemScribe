@@ -66,11 +66,12 @@ public class SelectDB {
                return false;
            }
     } public ArrayList<Issue> GetIssues(String username1){
+        System.out.println("Username: "+username1);
         ArrayList<Issue> issueList = new ArrayList<Issue>();
         //query for getting the issues
         String query = "SELECT issuename, issuestatus, description, creation " + 
                         "FROM issues " + 
-                        "WHERE id = (SELECT id FROM users WHERE username = ?)";
+                        "WHERE userid = (SELECT id FROM users WHERE username = ?)";
 
         try (Connection connection = DriverManager.getConnection(url, username, password);//Establishes connection
             PreparedStatement statement = connection.prepareStatement(query)) {

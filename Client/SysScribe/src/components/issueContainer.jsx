@@ -14,8 +14,11 @@ function IssueContainer(){
         setUsername(authData);
         console.log('Data: '+authData);
         if (authData) {
-            const isUser = async () => {
+            console.log("inside if statement");
+            async function isUser() {
+                console.log("function is working");
                 try {
+                    console.log("about to try auth");
                     const response = await axios.get('http://localhost:8080/api/auth', {
                         params: { user: authData }
                     });
@@ -23,15 +26,19 @@ function IssueContainer(){
             if (response.data) {
                     console.log('It worked');
             } else {
-                    console.log('User not found');
+                    console.log('User not found: '+response.data);
                     Navigate('/login');
             }
         } catch (e){
+            console.log('ERR');
             Navigate('/login');
         }
+        console.log('End of function');
+    }
         isUser();
-    }}
+    }
     else{
+        console.log('ERR inner condition');
         Navigate('/login');
     }}, 
     []);
@@ -48,7 +55,8 @@ function IssueContainer(){
             }
         };
         fetchData();
-    }, []);
+        console.log(`Recieved data is: ${received.length}`);
+    }, [username]);
     function sendData(e, index){
         return <Issue issueName={e.issueName} description={e.description} creationTime={e.creationTime} issueState={e.issueStatus} key={index}/>
     }

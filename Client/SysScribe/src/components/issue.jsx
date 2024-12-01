@@ -1,14 +1,14 @@
 import React from 'react';
 
-function Issue(){
+function Issue(props){
 
     return(
         <div className="issue">
-            <p>Issue Name</p>
+            <p>{props.issueName}</p>
             <div className="inner-issue">
-                <p>STATUS: Ongoing</p>
+                <p>STATUS: {props.issueState}</p>
             </div>
-            <p>Sent: 11/5/2024</p>
+            <p>Sent: {props.creationTime}</p>
             <div className="inner-issue">
                 <input style={{ width: "85px", height: "35px" }} className="btn btn-danger" type="button" value="DELETE" />
             </div>

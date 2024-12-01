@@ -97,11 +97,13 @@ public class MainController {
     public boolean Auth(@RequestParam(name = "user") String user) {
         //For checking cookie value passed by user
         String username = user;
-        boolean results = SelectDB.SelectUserQuery(username," ");
+        System.out.println("this is the user: "+username);
+        boolean results = SelectDB.SelectUsernameQuery(username," ");
         return results;
     }
     @GetMapping("/api/get-issues")
-    public ArrayList<Issue> getIssues(@RequestParam(name = "user") String user) {
+    public ArrayList<Issue> getIssues(@RequestParam(name = "user") String username) {
+        String user = username;
         return SelectDB.GetIssues(user);
     }
 }
