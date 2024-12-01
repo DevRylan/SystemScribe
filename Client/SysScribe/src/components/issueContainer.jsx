@@ -63,7 +63,8 @@ function IssueContainer(){
     return(<div id="issue-container">
         <div className="user-button-container">
             <button className="btn btn-info" onClick={() => Navigate('/report-issue')}>Report Issue</button>
-            <button className="btn btn-danger">Logout</button>
+            <h3 className="default-text">My Issues</h3>
+            <button className="btn btn-danger" onClick={()=>{localStorage.removeItem('auth'); Navigate('/login');}}>Logout</button>
         </div>
         <div id="issue-box">
             {received && received.map(sendData)}
