@@ -93,6 +93,11 @@ public class MainController {
         String severity = reportData.get("severity");
         InsertDB.InsertIssueQuery(username1, title, description, os, severity);
     }
+    @PostMapping("/api/delete-issue")
+    public void DeleteIssue(@RequestBody Map<String, Integer> issueId){
+        int Id = issueId.get("issueId");
+        InsertDB.DeleteIssueQuery(Id);
+    }
     @GetMapping("/api/auth")
     public boolean Auth(@RequestParam(name = "user") String user) {
         //For checking cookie value passed by user

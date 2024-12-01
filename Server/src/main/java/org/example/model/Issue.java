@@ -10,11 +10,14 @@ public class Issue {
     private String creationTime;
     @JsonProperty("issueStatus")
     private String issueStatus;
+    @JsonProperty("issueId")
+    private int issueId;
 
-    public Issue(String issueName, String description, String creationTime, String issueStatus){
+    public Issue(String issueName, String description, String creationTime, String issueStatus, int issueId){
         this.issueName = issueName;
         this.description = description;
         this.creationTime = creationTime;
         this.issueStatus = issueStatus;
+        this.issueId = issueId;
     }
 }

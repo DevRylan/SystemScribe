@@ -57,5 +57,17 @@ public class InsertDB {
             System.out.println("Error: Unable to fetch data from the database!");
         }
     }
+    public void DeleteIssueQuery(int issueId){
+        String query = "UPDATE issues SET isDeleted = TRUE WHERE id = ?";
+        try (Connection connection = DriverManager.getConnection(url, username, password);
+             PreparedStatement statement = connection.prepareStatement(query)) {
+             statement.setInt(1, issueId);
+             statement.executeUpdate();
+        }
+         catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Error: Unable to fetch data from the database!");
+        }
+    }
 
 }

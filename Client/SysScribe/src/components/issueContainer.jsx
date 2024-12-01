@@ -58,7 +58,7 @@ function IssueContainer(){
         console.log(`Recieved data is: ${received.length}`);
     }, [username]);
     function sendData(e, index){
-        return <Issue issueName={e.issueName} description={e.description} creationTime={e.creationTime} issueState={e.issueStatus} key={index}/>
+        return <Issue issueName={e.issueName} description={e.description} creationTime={e.creationTime} issueState={e.issueStatus} issueId={e.issueId} key={index}/>
     }
     return(<div id="issue-container">
         <div className="user-button-container">

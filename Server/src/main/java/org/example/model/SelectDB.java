@@ -69,9 +69,9 @@ public class SelectDB {
         System.out.println("Username: "+username1);
         ArrayList<Issue> issueList = new ArrayList<Issue>();
         //query for getting the issues
-        String query = "SELECT issuename, issuestatus, description, creation " + 
+        String query = "SELECT id, issuename, issuestatus, description, creation " + 
                         "FROM issues " + 
-                        "WHERE userid = (SELECT id FROM users WHERE username = ?)";
+                        "WHERE userid = (SELECT id FROM users WHERE username = ?) AND isDeleted = FALSE";
 
         try (Connection connection = DriverManager.getConnection(url, username, password);//Establishes connection
             PreparedStatement statement = connection.prepareStatement(query)) {
@@ -82,7 +82,8 @@ public class SelectDB {
                     issueList.add(new Issue(resultSet.getString("issuename"), 
                     resultSet.getString("description"), 
                     resultSet.getString("creation"), 
-                    resultSet.getString("issuestatus")));
+                    resultSet.getString("issuestatus"),
+                    resultSet.getInt("id")));
                 }return issueList;}
                 catch (SQLException e) {
                    e.printStackTrace();
