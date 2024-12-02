@@ -78,11 +78,12 @@ public class MainController {
         boolean results = SelectDB.SelectUserQuery(username, password);
         if (results) {//if user exists
             response.put("register", false);
-            response.put("reason", "user exists");
+            response.put("reason", "User Exists");
             return ResponseEntity.ok(response);
         }else{
             InsertDB.InsertUserQuery(username, password);
             response.put("register", true);
+            response.put("auth", username);
             return ResponseEntity.ok(response);
         }
     }

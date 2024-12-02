@@ -5,7 +5,8 @@ import {useNavigate} from 'react-router-dom'
 function RegisterForm(){
     const [userForm, userFormChange] = React.useState({username: '', password: ''});
     const Navigate = useNavigate();
-    
+    const [error, setError] = React.useState('');
+
     function updateInfo(e){
         if (e.target.placeholder === "Username"){
             userFormChange((prevValue)=>{
@@ -28,8 +29,10 @@ function RegisterForm(){
         const response = await Axios.post('http://localhost:8080/api/register', userForm);
         console.log('Response: ' +response.data.login);
         if (response.data.register){
+            localStorage.setItem('auth', JSON.stringify(response.data.auth));
             Navigate('/menu')
         } else{
+            setError(response.data.reason);
             console.log('REGISTER FAILED: ALREADY EXISTS');
         }
     }
@@ -40,8 +43,8 @@ function RegisterForm(){
             <form style={{display: "flex", 
                           flexDirection: "column", 
                           gap: "10px"}} method="POST" >
-                <input type="text" placeholder="Username" onChange={updateInfo}/>
-                <input type="password" placeholder="Password" onChange={updateInfo}/>
+                <input type="text" placeholder="Username" onChange={updateInfo} className={error ? "error-input" : ""}/>
+                <input type="password" placeholder="Password" onChange={updateInfo} className={error ? "error-input" : ""}/>
                 <button type="button" onClick={handleClick} className="btn btn-primary">Login</button>
             </form>
             <a href='/admin'style=
@@ -54,6 +57,7 @@ function RegisterForm(){
                textDecoration: 'underline', 
                cursor: 'pointer' }}>
                Or Create an Account.</a>
+            {error ? <h3 className="error">{error}</h3> : null}
         </div>
     </div>);
 }

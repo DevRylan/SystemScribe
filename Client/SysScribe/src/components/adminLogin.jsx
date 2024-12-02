@@ -12,7 +12,7 @@ function AdminLoginForm(){
         console.log('Response: ' +response.data.login);
         if (response.data.login){
             localStorage.setItem('admin-auth', JSON.stringify("IsAdmin"));
-            Navigate('/menu')
+            Navigate('/admin-menu')
         } else{
             console.log('LOGIN FAILED: INCORRECT CREDENTIALS');
             setError(true);

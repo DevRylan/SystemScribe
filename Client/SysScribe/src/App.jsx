@@ -6,6 +6,7 @@ import AdminLoginPage from './pages/adminLoginPage';
 import IssueMenu from './pages/IssueMenu';
 import RegisterPage from './pages/registerPage';
 import IssuePage from './pages/IssuePage';
+import AdminMenuPage from './pages/AdminMenuPage';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/admin" element={<AdminLoginPage/>}/>
         <Route path="/menu" element={<IssueMenu/>}/>
         <Route path="/report-issue" element={<IssuePage/>}/>
+        <Route path="/admin-menu" element={<AdminMenuPage/>}/>
       </Routes>
       </BrowserRouter>
     </div>
