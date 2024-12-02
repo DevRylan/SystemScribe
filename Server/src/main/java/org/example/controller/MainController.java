@@ -9,6 +9,7 @@ import org.example.model.InsertDB;
 import org.example.model.Issue;
 import org.example.model.SelectDB;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -25,6 +26,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class MainController {
     private final SelectDB SelectDB;
     private final InsertDB InsertDB;
+    @Value("${spring.datasource.AdminPassword}")
+    private String adminPassword;
     @Autowired 
     private BCryptPasswordEncoder passwordEncoder;
 
@@ -110,5 +113,14 @@ public class MainController {
     public ArrayList<Issue> getIssues(@RequestParam(name = "user") String username) {
         String user = username;
         return SelectDB.GetIssues(user);
+    }
+    @GetMapping("/api/check-admin")
+    public ResponseEntity<Map<String, Object>> Login(@RequestParam(name = "user") String password){
+        System.out.println("The password is: " +password);
+        Map<String, Object> response = new HashMap<>();
+        if(password.equals(adminPassword)){
+            response.put("login", true);
+            return ResponseEntity.ok(response);
+        }return ResponseEntity.ok(response);
     }
 }
