@@ -1,9 +1,11 @@
 import Axios from 'axios';
 import React from 'react';
+import {useNavigate} from 'react-router-dom'
 
 function AdminLoginForm(){
     const [password, setPassword] = React.useState('');
     const [error, setError] = React.useState(false);
+    const Navigate = useNavigate();
     async function handleClick(e){
         console.log('Response: about to try');
         const response = await Axios.get('http://localhost:8080/api/check-admin', {
@@ -12,7 +14,7 @@ function AdminLoginForm(){
         console.log('Response: ' +response.data.login);
         if (response.data.login){
             localStorage.setItem('admin-auth', JSON.stringify("IsAdmin"));
-            Navigate('/admin-menu')
+            Navigate('/admin-menu');
         } else{
             console.log('LOGIN FAILED: INCORRECT CREDENTIALS');
             setError(true);

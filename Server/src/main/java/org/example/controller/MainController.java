@@ -110,6 +110,13 @@ public class MainController {
         boolean results = SelectDB.SelectUsernameQuery(username," ");
         return results;
     }
+    @GetMapping("/api/check-admin-auth")
+    public boolean adminAuth(@RequestParam(name = "user") String user) {
+        //For checking cookie value passed by user
+        boolean results = false;
+        if(user.equals("IsAdmin")) return true;
+        return results;
+    }
     @GetMapping("/api/get-issues")
     public ArrayList<Issue> getIssues(@RequestParam(name = "user") String username) {
         String user = username;
