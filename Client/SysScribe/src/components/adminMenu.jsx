@@ -1,6 +1,8 @@
 import React from "react";
 import axios from "axios";
 import {useNavigate} from 'react-router-dom'
+import Issue from "./issue";
+
 
 function AdminMenu(){
     const [received, addRecieved] = React.useState([]);
@@ -37,6 +39,10 @@ function AdminMenu(){
         Navigate('/login');
     }}, 
     []);
+    function sendData(e, index){
+        return <Issue issueName={e.issueName} description={e.description} creationTime={e.creationTime} issueState={e.issueStatus} issueId={e.issueId} key={index}/>
+
+    }
     React.useEffect(() => {
         const fetchData = async () => {
             try {
@@ -56,7 +62,7 @@ function AdminMenu(){
             <button className="btn btn-danger" onClick={()=>{localStorage.removeItem('admin-auth'); Navigate('/login');}}>Logout</button>
         </div>
         <div id="issue-box">
-            {/*{received && received.map(sendData)}*/}
+            {received && received.map(sendData)}
         </div>
     </div>);
 }

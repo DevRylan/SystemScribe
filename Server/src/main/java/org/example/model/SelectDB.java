@@ -101,7 +101,7 @@ public class SelectDB {
         String query = "SELECT id, issuename, issuestatus, description, creation " + 
                         "FROM issues " + 
                         "WHERE isDeleted = FALSE";
-
+        System.out.println("Attempting to Get All Issues");
         try (Connection connection = DriverManager.getConnection(url, username, password);//Establishes connection
             PreparedStatement statement = connection.prepareStatement(query)) {
             try(ResultSet resultSet = statement.executeQuery()){

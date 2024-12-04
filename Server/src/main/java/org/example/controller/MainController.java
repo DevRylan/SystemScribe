@@ -128,10 +128,8 @@ public class MainController {
     }
     @GetMapping("/api/check-admin")
     public ResponseEntity<Map<String, Object>> Login(@RequestParam(name = "user") String password){
-        System.out.println("The password is: " +password+ "The admin password is: " +adminPassword);
         Map<String, Object> response = new HashMap<>();
         if(password.equals(adminPassword)){
-            System.out.println("It worked");
             response.put("login", true);
             return ResponseEntity.ok(response);
         }return ResponseEntity.ok(response);
