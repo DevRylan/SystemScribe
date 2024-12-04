@@ -95,7 +95,36 @@ public class SelectDB {
                System.out.println("Error: Unable to fetch data from the database!");
                return null;
            }
-    } public int SelectUserId(String Username1){
+    } public ArrayList<Issue> GetAllIssues(){
+        ArrayList<Issue> issueList = new ArrayList<Issue>();
+        //query for getting the issues
+        String query = "SELECT id, issuename, issuestatus, description, creation " + 
+                        "FROM issues " + 
+                        "WHERE isDeleted = FALSE";
+
+        try (Connection connection = DriverManager.getConnection(url, username, password);//Establishes connection
+            PreparedStatement statement = connection.prepareStatement(query)) {
+            try(ResultSet resultSet = statement.executeQuery()){
+                while(resultSet.next()){
+                    //Iterates through the rows and appends to the list
+                    issueList.add(new Issue(resultSet.getString("issuename"), 
+                    resultSet.getString("description"), 
+                    resultSet.getString("creation"), 
+                    resultSet.getString("issuestatus"),
+                    resultSet.getInt("id")));
+                }return issueList;}
+                catch (SQLException e) {
+                   e.printStackTrace();
+                   System.out.println("Error: Unable to fetch data from the database!");
+                   return null;
+               }
+           } catch (SQLException e) {
+               e.printStackTrace();
+               System.out.println("Error: Unable to fetch data from the database!");
+               return null;
+           }
+    } 
+    public int SelectUserId(String Username1){
         String query = "SELECT id FROM users WHERE username = ?";
         try (Connection connectionID = DriverManager.getConnection(url, username, password);
              PreparedStatement statementID = connectionID.prepareStatement(query)) {

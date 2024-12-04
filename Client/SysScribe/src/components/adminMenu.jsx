@@ -21,10 +21,11 @@ function AdminMenu(){
             if (response.data) {
                     console.log('It worked');
             } else {
-                    useNavigate('/login');
+                    console.log('It didnt work');
+                    Navigate('/login');
             }
         } catch (e){
-            console.log('ERR');
+            console.log(e);
             Navigate('/login');
         }
         console.log('End of function');
@@ -36,6 +37,18 @@ function AdminMenu(){
         Navigate('/login');
     }}, 
     []);
+    React.useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get('http://localhost:8080/api/get-all-issues');
+                addRecieved(response.data);
+            } catch (error) {
+                console.error("Error fetching issues:", error);
+            }
+        };
+        fetchData();
+        console.log(`Recieved data is: ${received.length}`);
+    }, []);
     return(
         <div id="issue-container">
         <div className="user-button-container">
