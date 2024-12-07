@@ -12,12 +12,21 @@ public class Issue {
     private String issueStatus;
     @JsonProperty("issueId")
     private int issueId;
+    @JsonProperty("os")
+    private String os;
+    @JsonProperty("severity")
+    private String severity;
+    @JsonProperty("email")
+    private String email;
 
-    public Issue(String issueName, String description, String creationTime, String issueStatus, int issueId){
+    public Issue(String issueName, String description, String creationTime, String issueStatus, int issueId, String os, String severity, String email){
         this.issueName = issueName;
         this.description = description;
         this.creationTime = creationTime;
         this.issueStatus = issueStatus;
         this.issueId = issueId;
+        this.os = os;
+        this.severity = severity;
+        this.email = email;
     }
 }

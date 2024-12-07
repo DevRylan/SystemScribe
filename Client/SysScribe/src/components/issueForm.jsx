@@ -9,6 +9,7 @@ function IssueForm() {
   const [os, setOS] = React.useState("");
   const [severity, setSeverity] = React.useState("");
   const [username, setUsername] = React.useState("");
+  const [email, setEmail] = React.useState("");
   const [isSubmitted, setIsSubmitted] = React.useState(false);
 
   React.useEffect(()=>{
@@ -41,7 +42,7 @@ function IssueForm() {
     async function handleSubmit(event) {
         event.preventDefault();
       
-        const issueData = { username: username, title: title, description: description, os: os, severity: severity };
+        const issueData = { username: username, title: title, description: description, os: os, severity: severity, email: email };
       
         try {
           await axios.post("http://localhost:8080/api/report-issue", issueData, {
@@ -84,6 +85,13 @@ function IssueForm() {
           style={{ width: "40%", backgroundColor: "rgb(51, 51, 51)" }}
           value={title}
           onChange={(e) => setTitle(e.target.value)}
+        />
+        <h5 className="default-text">Your Email:</h5>
+        <input
+          type="text"
+          style={{ width: "40%", backgroundColor: "rgb(51, 51, 51)" }}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
         <h5 className="default-text">Issue Description:</h5>
         <textarea

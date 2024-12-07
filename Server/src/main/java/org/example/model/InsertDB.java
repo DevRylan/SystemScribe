@@ -40,8 +40,8 @@ public class InsertDB {
             System.out.println("Error: Unable to fetch data from the database!");
         }
     }
-    public void InsertIssueQuery(String username1, String title, String description, String os, String severity) {
-        String query = "INSERT INTO issues (userid, issuename, description, os, severity) VALUES (?, ?, ?, ?, ?)";
+    public void InsertIssueQuery(String username1, String title, String description, String os, String severity, String email) {
+        String query = "INSERT INTO issues (userid, issuename, description, os, severity, email) VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection connection = DriverManager.getConnection(url, username, password);
              PreparedStatement statement = connection.prepareStatement(query)) {
              //Formatting for the query
@@ -50,6 +50,7 @@ public class InsertDB {
              statement.setString(3, description);
              statement.setString(4, os);
              statement.setString(5, severity);
+             statement.setString(6, email);
              statement.executeUpdate();
         }
          catch (SQLException e) {
@@ -59,6 +60,18 @@ public class InsertDB {
     }
     public void DeleteIssueQuery(int issueId){
         String query = "UPDATE issues SET isDeleted = TRUE WHERE id = ?";
+        try (Connection connection = DriverManager.getConnection(url, username, password);
+             PreparedStatement statement = connection.prepareStatement(query)) {
+             statement.setInt(1, issueId);
+             statement.executeUpdate();
+        }
+         catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Error: Unable to fetch data from the database!");
+        }
+    }
+    public void FlagIssueQuery(int issueId){
+        String query = "UPDATE issues SET issuestatus = 'Ongoing' WHERE id = ?";
         try (Connection connection = DriverManager.getConnection(url, username, password);
              PreparedStatement statement = connection.prepareStatement(query)) {
              statement.setInt(1, issueId);

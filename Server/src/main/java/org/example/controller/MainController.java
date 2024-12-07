@@ -11,6 +11,7 @@ import org.example.model.SelectDB;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,6 +31,8 @@ public class MainController {
     private String adminPassword;
     @Autowired 
     private BCryptPasswordEncoder passwordEncoder;
+    @Autowired
+    private JavaMailSender mailSender;
 
     @Autowired
     public MainController(SelectDB selectDB, InsertDB insertDB) {
@@ -95,12 +98,29 @@ public class MainController {
         String description = reportData.get("description");
         String os = reportData.get("os");
         String severity = reportData.get("severity");
-        InsertDB.InsertIssueQuery(username1, title, description, os, severity);
+        String email = reportData.get("email");
+        System.out.println("The email is " +email);
+        InsertDB.InsertIssueQuery(username1, title, description, os, severity, email);
     }
     @PostMapping("/api/delete-issue")
     public void DeleteIssue(@RequestBody Map<String, Integer> issueId){
         int Id = issueId.get("issueId");
         InsertDB.DeleteIssueQuery(Id);
+    }
+    @PostMapping("/api/submit-email")
+    public void SubmitEmail(@RequestBody Map<String, String> info){
+        String emailData = info.get("email");
+        String usersEmail = info.get("usersEmail");
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(usersEmail);
+        message.setSubject("Issue Resolution");
+        message.setText(emailData);
+        message.setFrom("ADMINS EMAIL HERE");//Removed email due to privacy reasons
+
+        mailSender.send(message);
+        int infoId = Integer.parseInt(info.get("info"));
+        System.out.println(infoId + " Is the id in the submit email.");
+        InsertDB.FlagIssueQuery(infoId);
     }
     @GetMapping("/api/auth")
     public boolean Auth(@RequestParam(name = "user") String user) {

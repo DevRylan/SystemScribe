@@ -69,7 +69,7 @@ public class SelectDB {
         System.out.println("Username: "+username1);
         ArrayList<Issue> issueList = new ArrayList<Issue>();
         //query for getting the issues
-        String query = "SELECT id, issuename, issuestatus, description, creation " + 
+        String query = "SELECT id, issuename, issuestatus, description, creation, os, severity, email " + 
                         "FROM issues " + 
                         "WHERE userid = (SELECT id FROM users WHERE username = ?) AND isDeleted = FALSE";
 
@@ -83,7 +83,10 @@ public class SelectDB {
                     resultSet.getString("description"), 
                     resultSet.getString("creation"), 
                     resultSet.getString("issuestatus"),
-                    resultSet.getInt("id")));
+                    resultSet.getInt("id"),
+                    resultSet.getString("os"),
+                    resultSet.getString("severity"),
+                    resultSet.getString("email")));
                 }return issueList;}
                 catch (SQLException e) {
                    e.printStackTrace();
@@ -98,7 +101,7 @@ public class SelectDB {
     } public ArrayList<Issue> GetAllIssues(){
         ArrayList<Issue> issueList = new ArrayList<Issue>();
         //query for getting the issues
-        String query = "SELECT id, issuename, issuestatus, description, creation " + 
+        String query = "SELECT id, issuename, issuestatus, description, creation, os, severity, email " + 
                         "FROM issues " + 
                         "WHERE isDeleted = FALSE";
         System.out.println("Attempting to Get All Issues");
@@ -111,7 +114,10 @@ public class SelectDB {
                     resultSet.getString("description"), 
                     resultSet.getString("creation"), 
                     resultSet.getString("issuestatus"),
-                    resultSet.getInt("id")));
+                    resultSet.getInt("id"),
+                    resultSet.getString("os"),
+                    resultSet.getString("severity"),
+                    resultSet.getString("email")));
                 }return issueList;}
                 catch (SQLException e) {
                    e.printStackTrace();
@@ -142,6 +148,26 @@ public class SelectDB {
             e.printStackTrace();
             System.out.println("Error: Unable to fetch data from the database!");
             return -1;
+        }
+    }
+    public String SelectUserEmail(int UserId){
+        String query = "SELECT email FROM issues WHERE id = ?";
+        try (Connection connectionID = DriverManager.getConnection(url, username, password);
+             PreparedStatement statementID = connectionID.prepareStatement(query)) {
+             statementID.setInt(1, UserId);
+             try(ResultSet resultSet = statementID.executeQuery();){
+                if (resultSet.next()) { 
+                    return resultSet.getString("email"); 
+                } else {
+                    System.out.println("No user found with username");
+                    return null; 
+                }
+             }
+        }
+         catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Error: Unable to fetch data from the database!");
+            return null;
         }
     }
 

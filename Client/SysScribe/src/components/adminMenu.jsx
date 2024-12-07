@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import {useNavigate} from 'react-router-dom'
-import Issue from "./issue";
+import Issue from "./issueClickable";
 
 
 function AdminMenu(){
@@ -40,7 +40,7 @@ function AdminMenu(){
     }}, 
     []);
     function sendData(e, index){
-        return <Issue issueName={e.issueName} description={e.description} creationTime={e.creationTime} issueState={e.issueStatus} issueId={e.issueId} key={index}/>
+        return <Issue issueName={e.issueName} email={e.email} description={e.description} creationTime={e.creationTime} issueState={e.issueStatus} issueId={e.issueId} os={e.os} severity={e.severity} key={index}/>
 
     }
     React.useEffect(() => {

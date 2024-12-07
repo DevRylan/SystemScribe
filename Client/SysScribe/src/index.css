@@ -159,3 +159,10 @@ body {
   width: 90%;
   height: 30vh;
 }
+.admin-issue:hover{
+  background-color: rgb(100, 105, 108) !important;
+  transition: background-color 0.15s ease;
+}
+.admin-issue:active{
+  background-color: rgb(90, 95, 98) !important;
+}
